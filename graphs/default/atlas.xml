@@ -16,10 +16,12 @@
 
 	<!-- add edges here -->
 	<edge from="server" to="atlas"/>
+	<edge from="server" to="atlas-server"/>
 	<edge from="client" to="atlas"/>
 
         <!-- opal deployment -->
 	<edge from="client" to="atlas-opal" cond="opal_server"/>
+	<edge from="server" to="atlas-opal"/>
 
 	<order head="opal-common">
 		<tail>atlas-opal</tail>

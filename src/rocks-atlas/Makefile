@@ -1,6 +1,4 @@
 #
-# $Id$
-#
 # @Copyright@
 # 
 # 				Rocks(r)
@@ -55,20 +53,30 @@
 # 
 # @Copyright@
 #
-# $Log$
-#
 
--include $(ROLLSROOT)/etc/Rolls.mk
-include Rolls.mk
-include atlas.mk
+REDHAT.ROOT = $(CURDIR)/../../
 
-default: 
-	for i in `ls nodes/*.xml.in`; do \
-	    export o=`echo $$i | sed 's/\.in//'`; \
-	    cp $$i $$o; \
-	    sed -i "s/ATLASVER/$(ATLASVER)/g" $$o; \
-	    done
-	#$(MAKE) roll
+-include $(ROCKSROOT)/etc/Rules.mk
+include Rules.mk
 
-cvsclean:: clean
-	rm -rf nodes/atlas-opal.xml nodes/atlas-server.xml
+version.mk:
+	cat ../../atlas.mk version.mk.in > version.mk
+
+SEDSPEC += \
+        -e 's%ATLASVER%$(ATLASVER)%g' \
+        -e 's%PKGROOT%$(PKGROOT)%g'
+
+SCRIPTS = addPE.sh
+
+addPE.sh: addPE.sh.in
+	$(SED) $(SEDSPEC) $^ > $@
+
+build: version.mk $(SCRIPTS)
+	
+install::
+	mkdir -p $(ROOT)/$(PKGROOT)
+	install -m644 threaded.pe  $(ROOT)/$(PKGROOT)
+	install -m755 addPE.sh  $(ROOT)/$(PKGROOT)
+
+clean::
+	rm -rf $(SCRIPTS) version.mk

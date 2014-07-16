@@ -67,7 +67,7 @@ SEDSPEC += \
         -e 's%ATLASVER%$(ATLASVER)%g' \
         -e 's%PKGROOT%$(PKGROOT)%g'
 
-SCRIPTS = atlasWS.py atlas_$(ATLASVER).xml addPE.sh
+SCRIPTS = atlasWS.py atlas_$(ATLASVER).xml 
 
 atlasWS.py:  atlasWS.py.in
 	$(SED) $(SEDSPEC) $^ > $@
@@ -75,8 +75,6 @@ atlasWS.py:  atlasWS.py.in
 atlas_$(ATLASVER).xml:  atlas.xml.in
 	$(SED) $(SEDSPEC) $^ > $@
 
-addPE.sh: addPE.sh.in
-	$(SED) $(SEDSPEC) $^ > $@
 
 build: version.mk $(SCRIPTS)
 	
@@ -86,8 +84,6 @@ install::
 	mkdir -p $(ROOT)/$(ATLASBIN)
 	install -m755 atlasWS.py  $(ROOT)/$(ATLASBIN)
 	mkdir -p $(ROOT)/$(PKGROOT)/rocks
-	install -m644 threaded.pe  $(ROOT)/$(PKGROOT)/rocks
-	install -m755 addPE.sh  $(ROOT)/$(PKGROOT)/rocks
 
 clean::
 	rm -rf $(SCRIPTS) version.mk
