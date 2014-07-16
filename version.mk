@@ -1,0 +1,5 @@
+ROLLNAME	= atlas
+RELEASE		= 0
+COLOR		= linen
+
+REDHAT.ROOT	= $(CURDIR)

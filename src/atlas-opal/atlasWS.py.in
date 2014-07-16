@@ -1,0 +1,126 @@
+#!PYTHON27
+
+import os
+import sys
+import string
+import argparse
+
+
+class Atlas:
+    def __init__(self, argv):
+        self.args = argv[1:]
+        self.usageName  = os.path.basename(argv[0])
+        self.parseArgs()
+        self.setDefaults()
+
+    def setDefaults(self):
+        self.name = "atlas"
+        self.sgesub =  self.name + ".sub"
+        self.np = "8"  # number of cores to use for SGE job
+        self.cmd = "PKGROOT/bin/run_atlas"  
+        self.cmdopts = ""
+
+    def parseArgs(self):
+        parser = argparse.ArgumentParser()
+
+        # positional argumeents
+        parser.add_argument('--file-pdb',  help='Run for detection of protein-protein interaction sites')
+        parser.add_argument('--box-pdb',  help='PDB file to serve as box')
+        parser.add_argument('--flex-ligand',  help='Test for protein flexibility around this ligand')
+        parser.add_argument('--chains', default=[''], nargs='*', help='Map specified chains')
+        parser.add_argument('--clusters', default=[''], nargs='*', help='Test clusters for flexibiity')
+        parser.add_argument('--box-pad', type=float, default=3.0, help='Box padding (default 3A)')
+        parser.add_argument('--box-residue', help='Define a box using a residue present in the protein')
+
+        parser.add_argument('--prefix', help='Prefix results with given prefix')
+
+        # flag arguments
+        parser.add_argument('--ppi',              action="store_true", help='Run for detection of protein-protein interaction sites')
+        parser.add_argument('--auto-flex',        action="store_true", help='Automatically include flexibility in mapping')
+        parser.add_argument('--hydrogen-bonding', action="store_true", help='Use hydrogen bonding function for minimization')
+        parser.add_argument('--hb-filter',        action="store_true", help='Filter out polar probes that do not form hydrogen bonds')
+        parser.add_argument('--verbose',          action='store_true', help='Be verbose about certain items')
+
+        self.args = parser.parse_args()
+
+    def buildCommand(self):
+        # add positional arguments
+        if self.args.box_pdb:
+            self.cmdopts += " --box-pad %s" % self.args.box_pad
+            self.cmdopts += " --box-pdb %s" % self.args.box_pdb
+        if self.args.flex_ligand:
+            self.cmdopts += " --flex-ligand %s" % self.args.flex_ligand
+        if self.args.prefix:
+            self.cmdopts += " --prefix %s" % self.args.prefix
+        if self.args.box_residue:
+            self.cmdopts += " --box-residue %s" % self.args.box_residue
+
+        # add flags arguments
+        if self.args.ppi:
+            self.cmdopts += " --ppi" 
+        if self.args.auto_flex:
+            self.cmdopts += " --auto-flex" 
+        if self.args.hydrogen_bonding:
+            self.cmdopts += " --hydrogen-bonding " 
+        if self.args.hb_filter:
+            self.cmdopts += " --hb-filter " 
+        if self.args.verbose:
+            self.cmdopts += " --verbose" 
+
+        self.cmdopts += " %s" % self.args.file_pdb
+        if self.args.chains:
+            self.cmdopts += " %s" % string.join(self.args.chains)
+
+        if self.args.clusters:
+            self.cmdopts += " %s" % string.join(self.args.clusters)
+
+    def checkInputFiles(self):
+        # check input pdb
+        fname = self.args.file_pdb
+        if fname:
+            if not os.path.isfile(fname) :
+                self.inputError = "Required pdb file %s is missing" % fname
+                self.inputErrExit()
+
+        # check input box pdb if exists
+        fname = self.args.box_pdb
+        if fname:
+            if not os.path.isfile(fname) :
+                self.inputError = "Box pdb file %s is missing" % fname
+                self.inputErrExit()
+
+    def createSGEscript(self):
+        """ create SGE submit script """
+        subtxt  = "#!/bin/bash\n"
+        subtxt += "#$ -cwd\n"
+        subtxt += "#$ -S /bin/bash\n"
+        subtxt += "#$ -N %s\n" % self.name
+        subtxt += "#$ -o %s.out\n" % self.name
+        subtxt += "#$ -e %s.err\n" % self.name
+        subtxt += "#$ -pe threaded %s\n\n" % self.np
+        subtxt += "export PATH=/opt/python/bin:$PATH\n"
+        subtxt += "%s %s\n" % (self.cmd, self.cmdopts)
+
+        f = open(self.sgesub, 'w')
+        f.write(subtxt)
+        f.close()
+
+    def runSGEjob(self):
+        command = "qsub -sync y %s" % self.sgesub
+        #os.system(command)
+
+    def inputErrExit(self):
+        """ prints input related error and exits """
+        print (self.inputError)
+        sys.exit(0)
+
+    def run(self):
+        self.checkInputFiles()
+        self.buildCommand()
+        self.createSGEscript()
+        self.runSGEjob()
+
+if __name__ == "__main__":
+        app=Atlas(sys.argv)
+        app.run()
+

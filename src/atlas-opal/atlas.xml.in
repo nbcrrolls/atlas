@@ -1,0 +1,188 @@
+<appConfig xmlns="http://nbcr.sdsc.edu/opal/types"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <metadata appName="ATLAS ATLASVER">
+    <usage><![CDATA[, Atlas Computational Solvent Mapping with Flexibility ]]></usage>
+    <info xsd:type="xsd:string">
+    <![CDATA[
+
+Usage: run_atlas [-h] [--box-pdb BOX_PDB | --box-residue BOX_RESIDUE]
+                 [--box-pad BOX_PAD] [--auto-flex | --flex-ligand FLEX_LIGAND]
+                 [--hydrogen-bonding] [--hb-filter] [--np NP] [--ppi]
+                 [--prefix PREFIX] [--probes PROBES] [--advanced ADVANCED]
+                 [--verbose] 
+                 pdb_file [chains [chains ...]]
+
+--prefix PREFIX
+    Prefix results with given prefix, otherwise results will be prefixed based on input filename e.g. 1acb.pdb -> 1acb_atlas_ .
+--np N
+    This parameter is fixed to use 8 CPUS on a cluster node. User input is ignored
+--box-pdb PDB
+    Define a box for mapping using a PDB file.
+--box-residue RESIDUE
+    Define a box using a residue present in the protein.
+--box-pad
+    Padding around a box used to be used for mapping.
+--ppi
+    Run in a special mode that favors protein-protein interaction sites by reducing the cavity terms that favor more traditional drug sites.
+--hydrogen-bonding
+    Use hydrogen bonding function for minimization
+--hb-filter
+    Filter out polar probes that do not form hydrogen bonds
+--auto-flex
+    Automatically choose consensus sites to be used for flexibility based on predicted binding site rather than manually choosing sites (see Flexibility section below).
+    ]]>
+    </info>
+
+    <types> 
+        <!-- list of flags -->
+        <flags>
+            <flag>
+                <id>verbose</id>
+                <tag>--verbose</tag>
+                <textDesc>Be verbose about certain items</textDesc>
+                <default>true</default>
+            </flag>
+            <flag>
+                <id>hbfilter</id>
+                <tag>--hb-filter</tag>
+                <textDesc>Filter out polar probes that do not form hydrogen bonds</textDesc>
+            </flag>
+            <flag>
+                <id>hbonding</id>
+                <tag>--hydrogen-bonding</tag>
+                <textDesc>Use hydrogen bonding function for minimization</textDesc>
+            </flag>
+            <flag>
+                <id>autoflex</id>
+                <tag>--auto-flex</tag>
+                <textDesc>Automatically include flexibility in mapping</textDesc>
+            </flag>
+            <flag>
+                <id>ppi</id>
+                <tag>--ppi</tag>
+                <textDesc>Run for detection of protein-protein interaction sites</textDesc>
+            </flag>
+
+        </flags>
+    
+        <!-- list of tagged parameters -->
+        <taggedParams>
+            <separator>=</separator>
+            <param>
+                <id>prefix</id>
+                <tag>--prefix</tag>
+                <paramType>STRING</paramType>
+                <required>false</required>  
+                <textDesc>Prefix results with given prefix </textDesc>
+            </param>
+
+            <param>
+                <id>boxresidue</id>
+                <tag>--box-residue</tag>
+                <paramType>STRING</paramType>
+                <required>false</required>  
+                <textDesc>Define a box using a residue present in the protein </textDesc>
+            </param>
+
+            <param>
+                <id>boxpad</id>
+                <tag>--box-pad</tag>
+                <paramType>FLOAT</paramType>
+                <textDesc>Box padding (default 3A)</textDesc>
+            </param>
+
+            <param>
+                <id>clusters</id>
+                <tag>--clusters</tag>
+                <paramType>STRING</paramType>
+                <textDesc>List of clusters to test for flexibiity (ex. 1 2 4)</textDesc> 
+            </param>
+
+            <param>
+                <id>chains</id>
+                <tag>--chains</tag>
+                <paramType>STRING</paramType>
+                <textDesc>Map specified chains</textDesc> 
+            </param>
+
+            <param>
+                <id>flexligand</id>
+                <tag>--flex-ligand</tag>
+                <paramType>STRING</paramType>
+                <textDesc>Test for protein flexibility around this ligand</textDesc> 
+            </param>
+
+            <param>
+                <id>boxpdb</id>
+                <tag>--box-pdb</tag>
+                <paramType>FILE</paramType>
+                <ioType>INPUT</ioType>
+                <required>false</required>
+                <textDesc>Input PDB file to serve as box</textDesc> 
+            </param>
+
+            <param>
+                <id>filepdb</id>
+                <tag>--file-pdb</tag>
+                <paramType>FILE</paramType>
+                <ioType>INPUT</ioType>
+                <textDesc>Input PDB file</textDesc> 
+            </param>
+
+        </taggedParams>
+    
+        <!-- list of untagged parameters, in order -->
+        <untaggedParams>
+        </untaggedParams>
+
+        <groups>
+          <group>
+            <name>inputFile</name>
+            <elements>filepdb</elements>
+            <required>true</required>
+            <textDesc>Please enter input file:</textDesc>
+          </group>
+
+          <group>
+            <name>outputOptions</name>
+            <elements>prefix</elements>
+            <required>false</required>
+            <textDesc>Use this prefix for results (overwrites default)</textDesc>
+          </group>
+
+          <group>
+            <name>BoxGroup</name>
+            <elements>boxpdb boxresidue boxpad</elements>
+            <textDesc>Binding partner box</textDesc>
+          </group>
+
+          <group>
+            <name>FlexLigandGroup</name>
+            <elements>flexligand clusters</elements>
+            <required>false</required>
+            <textDesc>Flexibility</textDesc>
+          </group>
+
+          <group>
+            <name>ChainGroup</name>
+            <elements>chains </elements>
+            <required>false</required>
+            <textDesc>Chains</textDesc>
+          </group>
+
+          <group>
+            <name>AvailableFlags</name>
+            <elements>ppi autoflex hbonding hbfilter verbose</elements>
+            <required>false</required>
+            <textDesc>Available options </textDesc>
+          </group>
+
+        </groups>
+    </types>
+
+  </metadata>
+
+  <binaryLocation>PKGROOT/bin/atlasWS.py</binaryLocation>
+  <jobManagerFQCN>edu.sdsc.nbcr.opal.manager.ForkJobManager</jobManagerFQCN>
+  <parallel>false</parallel>
+</appConfig>
