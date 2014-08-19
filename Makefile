@@ -68,7 +68,7 @@ default:
 	    cp $$i $$o; \
 	    sed -i "s/ATLASVER/$(ATLASVER)/g" $$o; \
 	    done
-	#$(MAKE) roll
+	$(MAKE) roll
 
 cvsclean:: clean
 	rm -rf nodes/atlas-opal.xml nodes/atlas-server.xml
