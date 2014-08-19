@@ -72,3 +72,4 @@ default:
 
 cvsclean:: clean
 	rm -rf nodes/atlas-opal.xml nodes/atlas-server.xml
+	rm -rf _arch
