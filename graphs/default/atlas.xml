@@ -20,10 +20,22 @@
 	<edge from="client" to="atlas"/>
 
         <!-- opal deployment -->
-	<edge from="client" to="atlas-opal" cond="opal_server"/>
 	<edge from="server" to="atlas-opal"/>
+	<edge from="client" to="atlas-opal" cond="opal_server"/>
 
+	<!-- opal must be available -->
 	<order head="opal-common">
+		<tail>atlas-opal</tail>
+	</order>
+
+	<!-- scheduler must be available -->
+	<order head="sge-base">
+		<tail>atlas-server</tail>
+	</order>
+
+	<!-- scheduler must be available -->
+	<order head="atlas">
+		<tail>atlas-server</tail>
 		<tail>atlas-opal</tail>
 	</order>
 
