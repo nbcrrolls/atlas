@@ -1,4 +1,5 @@
-PKGROOT		= /opt/atlas-$(ATLASVER)
+VERSION         = $(ATLASVER)
+PKGROOT		= /opt/atlas-$(VERSION)
 NAME    	= atlas-opal
 OPALDIR         = /opt/opal/deployed
 ATLASBIN        = $(PKGROOT)/bin

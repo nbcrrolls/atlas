@@ -67,8 +67,8 @@ version.mk:
 build:
 	
 install::
-	mkdir -p $(ROOT)/$(PKGROOT)-$(ATLASVER)
-	tar xzvf  $(NAME)-$(DIST).$(TARBALL_POSTFIX)  -C  $(ROOT)/$(PKGROOT)-$(ATLASVER) --strip=2
+	mkdir -p $(ROOT)/$(PKGROOT)-$(VERSION)
+	tar xzvf  $(NAME)-$(DIST).$(TARBALL_POSTFIX)  -C  $(ROOT)/$(PKGROOT)-$(VERSION) --strip=2
 
 clean::
 	rm -rf $(NAME)-$(DIST) version.mk

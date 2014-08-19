@@ -1,6 +1,7 @@
+VERSION         = $(ATLASVER)
 PKGROOT		= /opt/atlas
 NAME    	= atlas
-DIST            = $(ATLASVER)-nopython
+DIST            = $(VERSION)-nopython
 
 RELEASE 	= 0
 TARBALL_POSTFIX	= tar.gz

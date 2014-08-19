@@ -63,7 +63,7 @@ version.mk:
 	cat ../../atlas.mk version.mk.in > version.mk
 
 SEDSPEC += \
-        -e 's%ATLASVER%$(ATLASVER)%g' \
+        -e 's%ATLASVER%$(VERSION)%g' \
         -e 's%PKGROOT%$(PKGROOT)%g'
 
 SCRIPTS = addPE.sh

@@ -64,11 +64,11 @@ version.mk:
 
 SEDSPEC += \
         -e 's%PYTHONVER%$(PYTHONVER)%g' \
-        -e 's%ATLASVER%$(ATLASVER)%g' \
+        -e 's%ATLASVER%$(VERSION)%g' \
         -e 's%PKGROOT%$(PKGROOT)%g'
 
 SCRIPTS = atlasWS.py flexWS.py 
-XMLS    = atlas_$(ATLASVER).xml flex_$(ATLASVER).xml 
+XMLS    = atlas_$(VERSION).xml flex_$(VERSION).xml 
 
 atlasWS.py:  atlasWS.py.in
 	$(SED) $(SEDSPEC) $^ > $@
@@ -76,10 +76,10 @@ atlasWS.py:  atlasWS.py.in
 flexWS.py:  flexWS.py.in
 	$(SED) $(SEDSPEC) $^ > $@
 
-atlas_$(ATLASVER).xml:  atlas.xml.in
+atlas_$(VERSION).xml:  atlas.xml.in
 	$(SED) $(SEDSPEC) $^ > $@
 
-flex_$(ATLASVER).xml:  flex.xml.in
+flex_$(VERSION).xml:  flex.xml.in
 	$(SED) $(SEDSPEC) $^ > $@
 
 build: version.mk $(SCRIPTS) $(XMLS)

@@ -1,4 +1,5 @@
-PKGROOT		= /opt/atlas-$(ATLASVER)/rocks
+VERSION         = $(ATLASVER)
+PKGROOT		= /opt/atlas-$(VERSION)/rocks
 NAME    	= rocks-atlas
 
 RELEASE 	= 0
