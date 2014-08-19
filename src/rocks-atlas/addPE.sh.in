@@ -3,11 +3,12 @@
 PEFILE=PKGROOT/rocks/threaded.pe
 PENAME=threaded
 QUEUE=all.q
+SGEBIN=/opt/gridengine/bin/lx26-amd64/
 
 if [ ! -f $PEFILE ]; then
     echo  "Parallel environment file  $PEFILE is not found" 
     exit 1
 fi
 
-qconf -Ap $PEFILE
-qconf -aattr queue pe_list $PENAME $QUEUE  
+$SGEBIN/qconf -Ap $PEFILE
+$SGEBIN/qconf -aattr queue pe_list $PENAME $QUEUE  
