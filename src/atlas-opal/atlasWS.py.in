@@ -60,7 +60,7 @@ class Atlas:
             self.cmdopts += " --hb-filter " 
 
         # set default NP
-        self.cmdopts += " --np %d" % self.np
+        self.cmdopts += " --np $NSLOTS" 
 
         if self.args.ppi:
             self.cmdopts += " --ppi" 
