@@ -3,10 +3,12 @@ BUILD/
 RPMS/
 SOURCES/
 SPECS/
-
-
+disk1/
+atlas*.iso
+.rpmmacros
+nodes/atlas-opal.xml
+nodes/atlas-server.xml
 *.pyc
-
 _os
 _arch
 _distribution
@@ -26,6 +28,10 @@ Rules-rcfiles.mk
 Rules-scripts.mk
 Rules.mk
 Rolls.mk
+roll*.spec*
+roll-*.xml
+roll-*.mk
 
 # ignore binarires
 src/atlas/atlas-*.gz
+
