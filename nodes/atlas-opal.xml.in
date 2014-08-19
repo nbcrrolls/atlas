@@ -4,7 +4,7 @@
 
 
 	<description>
-	The Atlas Roll
+	The Atlas Roll: opal server install
 	</description>
 
 	<copyright>
@@ -27,6 +27,14 @@ atlas_bin=/opt/atlas-ATLASVER/bin/atlas.sh
 if test -e $atlas_bin; then
     $ANT -f $OPALXML deploy -DserviceName=atlas_${atlasver} -DappConfig=$OPALCONFIG/atlas_${atlasver}.xml
 fi
+
+# flex 
+flexver=ATLASVER
+flexbin=/opt/atlas-ATLASVER/bin/flex_atlas
+if test -e $flexbin; then
+    $ANT -f $OPALXML deploy -DserviceName=flex_${flexver} -DappConfig=$OPALCONFIG/flex_${flexver}.xml
+fi
+
 </file>
 
 fi
