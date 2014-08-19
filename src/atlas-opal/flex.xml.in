@@ -1,34 +1,30 @@
 <appConfig xmlns="http://nbcr.sdsc.edu/opal/types"
            xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <metadata appName="ATLAS 1.0">
-    <usage><![CDATA[Atlas Computational Solvent Mapping with Flexibility ]]></usage>
+  <metadata appName="FLEX 1.0">
+    <usage><![CDATA[, Run atlas for a pdb file and chains]]></usage>
     <info xsd:type="xsd:string">
     <![CDATA[
 
-Usage: run_atlas [-h] [--box-pdb BOX_PDB | --box-residue BOX_RESIDUE]
-                 [--box-pad BOX_PAD] [--auto-flex | --flex-ligand FLEX_LIGAND]
-                 [--hydrogen-bonding] [--hb-filter] [--np NP] [--ppi]
-                 [--prefix PREFIX] [--verbose] 
-                 pdb_file [chains [chains ...]]
-
-Run atlas for a pdb file and chains
+Usage: flex_atlas [-h] [--box-pdb BOX_PDB | --box-residue BOX_RESIDUE]
+                  [--box-pad BOX_PAD] [--auto-flex] [--hydrogen-bonding]
+                  [--hb-filter] [--np NP] [--ppi] [--prefix PREFIX] [--verbose]
+                  initial_mapping [clusters [clusters ...]]
 
 positional arguments:
-  pdb_file                   input PDB file
-  chains                     list of chains (separated by commas)
+  initial_mapping       input initial mapping file
+  clusters              list of clusters (separated by commas)
 
-optional arguments:
-  --box-pdb BOX_PDB          PDB file to serve as box
-  --box-residue BOX_RESIDUE  Residue from pdb file to use for mapping to use as a box
-  --box-pad BOX_PAD          Box padding (default 3.0A)
-  --auto-flex                Automatically include flexibility in mapping
-  --flex-ligand FLEX_LIGAND  Test for protein flexibility around this ligand
-  --hydrogen-bonding         Use hydrogen bonding function for minimization
-  --hb-filter                Filter out polar probes that do not form hydrogen bonds
-  --np NP                    Use NP cores for running atlas
-  --ppi                      Run for detection of protein-protein interaction sites
-  --prefix PREFIX            Prefix for atlas output
-  --verbose                  Be verbose about certain items
+Optional arguments:
+  --box-pdb BOX_PDB         PDB file to serve as box
+  --box-residue BOX_RESIDUE Residue from pdb file to use for mapping to use as a box
+  --box-pad BOX_PAD         Box padding (float, default 3.0 A)
+  --auto-flex               Automatically include flexibility in mapping
+  --hydrogen-bonding        Use hydrogen bonding function for minimization
+  --hb-filter               Filter out polar probes that do not form hydrogen bonds
+  --np NP                   Use NP cores for running atlas. 
+  --ppi                     Run for detection of protein-protein interaction sites
+  --prefix PREFIX           prefix for atlas output
+  --verbose                 Be verbose about certain items
 
 On a cluster the NP is set to 8.
 
@@ -75,7 +71,7 @@ On a cluster the NP is set to 8.
                 <tag>--prefix</tag>
                 <paramType>STRING</paramType>
                 <required>false</required>  
-                <textDesc>Prefix for atlas output (overwrites default)</textDesc>
+                <textDesc>Prefix for flex output (overwrites defualt)</textDesc>
             </param>
 
             <param>
@@ -94,18 +90,12 @@ On a cluster the NP is set to 8.
             </param>
 
             <param>
-                <id>chains</id>
-                <tag>--chains</tag>
+                <id>clusters</id>
+                <tag>--clusters</tag>
                 <paramType>STRING</paramType>
-                <textDesc>Map specified chains (ex. a,b,c) </textDesc> 
+                <textDesc>List of clusters to test for flexibiity (ex. 1,2,4)</textDesc> 
             </param>
 
-            <param>
-                <id>flexligand</id>
-                <tag>--flex-ligand</tag>
-                <paramType>STRING</paramType>
-                <textDesc>Test for protein flexibility around this ligand</textDesc> 
-            </param>
 
             <param>
                 <id>boxpdb</id>
@@ -121,7 +111,7 @@ On a cluster the NP is set to 8.
                 <tag>--file-pdb</tag>
                 <paramType>FILE</paramType>
                 <ioType>INPUT</ioType>
-                <textDesc>Input PDB file</textDesc> 
+                <textDesc>Input initial mapping file</textDesc> 
             </param>
 
         </taggedParams>
@@ -153,16 +143,9 @@ On a cluster the NP is set to 8.
 
           <group>
             <name>FlexLigandGroup</name>
-            <elements>flexligand </elements>
+            <elements>clusters</elements>
             <required>false</required>
             <textDesc>Flexibility</textDesc>
-          </group>
-
-          <group>
-            <name>ChainGroup</name>
-            <elements>chains </elements>
-            <required>false</required>
-            <textDesc>Chains</textDesc>
           </group>
 
           <group>
@@ -177,7 +160,7 @@ On a cluster the NP is set to 8.
 
   </metadata>
 
-  <binaryLocation>PKGROOT/bin/atlasWS.py</binaryLocation>
+  <binaryLocation>PKGROOT/bin/flexWS.py</binaryLocation>
   <jobManagerFQCN>edu.sdsc.nbcr.opal.manager.ForkJobManager</jobManagerFQCN>
   <parallel>false</parallel>
 </appConfig>

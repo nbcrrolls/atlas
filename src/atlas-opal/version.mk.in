@@ -2,7 +2,7 @@ PKGROOT		= /opt/atlas-$(ATLASVER)
 NAME    	= atlas-opal
 OPALDIR         = /opt/opal/deployed
 ATLASBIN        = $(PKGROOT)/bin
-PYTHON27        = /opt/python/bin/python2.7
+PYTHONVER       = /opt/python/bin/python2.7
 
 RELEASE 	= 0
 

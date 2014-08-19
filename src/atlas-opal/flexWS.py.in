@@ -6,7 +6,7 @@ import string
 import argparse
 
 
-class Atlas:
+class Flex:
     def __init__(self, argv):
         self.args = argv[1:]
         self.usageName  = os.path.basename(argv[0])
@@ -14,10 +14,10 @@ class Atlas:
         self.setDefaults()
 
     def setDefaults(self):
-        self.base = "atlas"
+        self.base = "flex"
         self.sgesub =  self.base + ".sub"
         self.np = 8  # number of cores to use for SGE job
-        self.cmd = "/opt/atlas/bin/run_atlas"  
+        self.cmd = "/opt/atlas/bin/flex_atlas"  
         self.cmdopts = ""
 
     def parseArgs(self):
@@ -29,8 +29,8 @@ class Atlas:
         parser.add_argument('--box-residue', help='Define a box using a residue present in the protein')
         parser.add_argument('--box-pad', type=float, default=3.0, help='Box padding (default 3.0A)')
         parser.add_argument('--flex-ligand',  help='Test for protein flexibility around this ligand')
+        parser.add_argument('--clusters', default='', help='Test clusters for flexibiity')
         parser.add_argument('--prefix', help='Prefix results with given prefix')
-        parser.add_argument('--chains',  default='', help='Map specified chains')
 
         # flag arguments
         parser.add_argument('--auto-flex',        action="store_true", help='Automatically include flexibility in mapping')
@@ -72,10 +72,10 @@ class Atlas:
         # input PDB file 
         self.cmdopts += " %s" % self.args.file_pdb
 
-        # chains 
-        if self.args.chains:
-            self.args.chains = self.args.chains.replace(","," ")
-            self.cmdopts += " chains %s" % self.args.chains
+        # clusters 
+        if self.args.clusters:
+            self.args.clusters = self.args.clusters.replace(","," ")
+            self.cmdopts += " clusters %s" % self.args.clusters
 
 
     def checkInputFiles(self):
@@ -132,6 +132,6 @@ class Atlas:
         self.runSGEjob()
 
 if __name__ == "__main__":
-        app=Atlas(sys.argv)
+        app=Flex(sys.argv)
         app.run()
 

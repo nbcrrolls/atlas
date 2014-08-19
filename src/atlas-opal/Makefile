@@ -63,27 +63,32 @@ version.mk:
 	cat ../../atlas.mk version.mk.in > version.mk
 
 SEDSPEC += \
-        -e 's%PYTHON27%$(PYTHON27)%g' \
+        -e 's%PYTHONVER%$(PYTHONVER)%g' \
         -e 's%ATLASVER%$(ATLASVER)%g' \
         -e 's%PKGROOT%$(PKGROOT)%g'
 
-SCRIPTS = atlasWS.py atlas_$(ATLASVER).xml 
+SCRIPTS = atlasWS.py flexWS.py 
+XMLS    = atlas_$(ATLASVER).xml flex_$(ATLASVER).xml 
 
 atlasWS.py:  atlasWS.py.in
+	$(SED) $(SEDSPEC) $^ > $@
+
+flexWS.py:  flexWS.py.in
 	$(SED) $(SEDSPEC) $^ > $@
 
 atlas_$(ATLASVER).xml:  atlas.xml.in
 	$(SED) $(SEDSPEC) $^ > $@
 
+flex_$(ATLASVER).xml:  flex.xml.in
+	$(SED) $(SEDSPEC) $^ > $@
 
-build: version.mk $(SCRIPTS)
+build: version.mk $(SCRIPTS) $(XMLS)
 	
 install::
 	mkdir -p $(ROOT)/$(OPALDIR)
-	$(INSTALL)  -m 0644  atlas_$(ATLASVER).xml $(ROOT)/$(OPALDIR)
+	$(INSTALL) -m 0644  $(XMLS) $(ROOT)/$(OPALDIR)
 	mkdir -p $(ROOT)/$(ATLASBIN)
-	install -m755 atlasWS.py  $(ROOT)/$(ATLASBIN)
-	mkdir -p $(ROOT)/$(PKGROOT)/rocks
+	$(INSTALL) -m 755 $(SCRIPTS) $(ROOT)/$(ATLASBIN)
 
 clean::
-	rm -rf $(SCRIPTS) version.mk
+	rm -rf $(SCRIPTS) $(XMLS) version.mk
