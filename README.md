@@ -17,8 +17,9 @@ Current software (binary) distro is atlas-1.7.0-nopython.tar.bz2 recevied from D
 files from examples/:
 
 - src/atlas.py  
-   * line 923: rm env={} (subprocess.call([prms.atlas_base+'/pdb2pqr/pdb2pqr.py'...)  
-   * line 936: cast to str env_dictionary['OMP_NUM_THREADS'] = str(prms.np)  
+   * line 922: rm env={} (subprocess.call([prms.atlas_base+'/pdb2pqr/pdb2pqr.py'...)  
+   * line 934: cast to str env_dictionary['OMP_NUM_THREADS'] = str(prms.np)  
+   * line 1367:  change '.???.sdf' to '.*.sdf' (per D. Hall email Aud 20.)
 - src/run_atlas.py  
    * line 85: cast to str env_dictionary['OMP_NUM_THREADS'] = str(prms.np)  
    
