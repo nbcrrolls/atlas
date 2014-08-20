@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PEFILE=PKGROOT/rocks/threaded.pe
+PEFILE=PKGROOT/threaded.pe
 PENAME=threaded
 QUEUE=all.q
 SGEBIN=/opt/gridengine/bin/lx26-amd64/
