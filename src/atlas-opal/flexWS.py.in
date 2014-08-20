@@ -17,7 +17,7 @@ class Flex:
         self.base = "flex"
         self.sgesub =  self.base + ".sub"
         self.np = 8  # number of cores to use for SGE job
-        self.cmd = "/opt/atlas/bin/flex_atlas"  
+        self.cmd = "/opt/atlas-ATLASVER/bin/flex_atlas"  
         self.cmdopts = ""
 
     def parseArgs(self):

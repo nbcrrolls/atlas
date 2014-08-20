@@ -17,7 +17,7 @@ class Atlas:
         self.base = "atlas"
         self.sgesub =  self.base + ".sub"
         self.np = 8  # number of cores to use for SGE job
-        self.cmd = "/opt/atlas/bin/run_atlas"  
+        self.cmd = "/opt/atlas-ATLASVER/bin/run_atlas"  
         self.cmdopts = ""
 
     def parseArgs(self):
