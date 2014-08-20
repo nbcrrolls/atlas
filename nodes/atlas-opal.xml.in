@@ -23,7 +23,7 @@ if test -d /opt/opal; then
 <file name="/opt/opal/deployed/deploy.sh" mode="append">
 # atlas 
 atlasver=ATLASVER
-atlas_bin=/opt/atlas-ATLASVER/bin/atlas.sh
+atlas_bin=/opt/atlas-ATLASVER/bin/run_atlas
 if test -e $atlas_bin; then
     $ANT -f $OPALXML deploy -DserviceName=atlas_${atlasver} -DappConfig=$OPALCONFIG/atlas_${atlasver}.xml
 fi
