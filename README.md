@@ -24,6 +24,7 @@ files from examples/:
 
 - src/run_atlas.py  
    * line 85: cast to str env_dictionary['OMP_NUM_THREADS'] = str(prms.np)  
+   * line 169: add bug fix per D. Hall email Sep 2. 
    
 Roll info
 -----------
