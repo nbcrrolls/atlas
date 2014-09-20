@@ -68,7 +68,7 @@ SEDSPEC += \
         -e 's%PKGROOT%$(PKGROOT)%g'
 
 SCRIPTS = atlasWS.py flexWS.py 
-XMLS    = atlas_$(VERSION).xml flex_$(VERSION).xml 
+XMLS    = FTMap_$(VERSION).xml FTFlex_$(VERSION).xml 
 
 atlasWS.py:  atlasWS.py.in
 	$(SED) $(SEDSPEC) $^ > $@
@@ -76,10 +76,10 @@ atlasWS.py:  atlasWS.py.in
 flexWS.py:  flexWS.py.in
 	$(SED) $(SEDSPEC) $^ > $@
 
-atlas_$(VERSION).xml:  atlas.xml.in
+FTMap_$(VERSION).xml:  FTMap.xml.in
 	$(SED) $(SEDSPEC) $^ > $@
 
-flex_$(VERSION).xml:  flex.xml.in
+FTFlex_$(VERSION).xml:  FTFlex.xml.in
 	$(SED) $(SEDSPEC) $^ > $@
 
 build: version.mk $(SCRIPTS) $(XMLS)
