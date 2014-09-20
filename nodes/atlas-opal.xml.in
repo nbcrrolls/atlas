@@ -21,18 +21,18 @@
 if test -d /opt/opal; then
 
 <file name="/opt/opal/deployed/deploy.sh" mode="append">
-# atlas 
+# FTMap 
 atlasver=ATLASVER
 atlas_bin=/opt/atlas-ATLASVER/bin/run_atlas
 if test -e $atlas_bin; then
-    $ANT -f $OPALXML deploy -DserviceName=atlas_${atlasver} -DappConfig=$OPALCONFIG/atlas_${atlasver}.xml
+    $ANT -f $OPALXML deploy -DserviceName=FTMap_${atlasver} -DappConfig=$OPALCONFIG/FTMap_${atlasver}.xml
 fi
 
 # flex 
 flexver=ATLASVER
 flexbin=/opt/atlas-ATLASVER/bin/flex_atlas
 if test -e $flexbin; then
-    $ANT -f $OPALXML deploy -DserviceName=flex_${flexver} -DappConfig=$OPALCONFIG/flex_${flexver}.xml
+    $ANT -f $OPALXML deploy -DserviceName=FTFlex_${flexver} -DappConfig=$OPALCONFIG/FTFlex_${flexver}.xml
 fi
 
 </file>
