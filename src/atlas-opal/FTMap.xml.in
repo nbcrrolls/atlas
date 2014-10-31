@@ -1,7 +1,7 @@
 <appConfig xmlns="http://nbcr.sdsc.edu/opal/types"
            xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <metadata appName="FTMap ATLASVER">
-    <usage><![CDATA[Atlas Computational Solvent Mapping with Flexibility ]]></usage>
+    <usage><![CDATA[Computational Solvent Mapping]]></usage>
     <info xsd:type="xsd:string">
     <![CDATA[
 
@@ -38,6 +38,12 @@ On a cluster the NP is set to 8.
     <types> 
         <!-- list of flags -->
         <flags>
+            <flag>
+                <id>license</id>
+                <tag> </tag>
+                <textDesc>Accept</textDesc>
+            </flag>
+
             <flag>
                 <id>verbose</id>
                 <tag>--verbose</tag>
@@ -170,6 +176,15 @@ On a cluster the NP is set to 8.
             <elements>ppi autoflex hbonding hbfilter verbose</elements>
             <required>false</required>
             <textDesc>Available options </textDesc>
+          </group>
+
+          <group>
+            <name>License</name>
+            <elements>license</elements>
+            <textDesc>Any published work which uses FTMap shall include the following reference:&lt;br&gt; &lt;br&gt;
+                 Brenke R, Kozakov D, Chuang GY, Beglov D, Hall D, Landon MR, Mattos C, and Vajda S. Fragment-based identification &lt;br&gt;
+                 of druggable 'hot spots' of proteins using Fourier domain correlation techniques. Bioinformatics. 2009 Mar 1
+            </textDesc>
           </group>
 
         </groups>

@@ -1,7 +1,7 @@
 <appConfig xmlns="http://nbcr.sdsc.edu/opal/types"
            xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <metadata appName="FTFlex ATLASVER">
-    <usage><![CDATA[, Run atlas for a pdb file and chains]]></usage>
+    <usage><![CDATA[Test for flexibility based on an FTMap run]]></usage>
     <info xsd:type="xsd:string">
     <![CDATA[
 
@@ -34,6 +34,12 @@ On a cluster the NP is set to 8.
     <types> 
         <!-- list of flags -->
         <flags>
+           <flag>
+                <id>license</id>
+                <tag> </tag>
+                <textDesc>Accept</textDesc>
+            </flag>
+
             <flag>
                 <id>verbose</id>
                 <tag>--verbose</tag>
@@ -153,6 +159,15 @@ On a cluster the NP is set to 8.
             <elements>ppi autoflex hbonding hbfilter verbose</elements>
             <required>false</required>
             <textDesc>Available options </textDesc>
+          </group>
+
+          <group>
+            <name>License</name>
+            <elements>license</elements>
+            <textDesc>Any published work which uses FTFlex shall include the following reference:&lt;br&gt; &lt;br&gt;
+                 Grove LE, Hall DR, Beglov D, Vajda S, Kozakov D.  FTFlex: Accounting for binding site flexibility &lt;br&gt;
+                 to improve fragment-based identification of druggable hot spots. Bioinformatics. 2013 
+            </textDesc>
           </group>
 
         </groups>
