@@ -67,9 +67,14 @@ default:
 	    export o=`echo $$i | sed 's/\.in//'`; \
 	    cp $$i $$o; \
 	    sed -i "s/ATLASVER/$(ATLASVER)/g" $$o; \
-	    done
+	done
 	$(MAKE) roll
 
 cvsclean:: clean
-	rm -rf nodes/atlas-opal.xml nodes/atlas-server.xml
+	for i in `ls nodes/*.xml.in`; do \
+	    export o=`echo $$i | sed 's/\.in//'`; \
+	    rm -rf  $$o; \
+	done
+
+clean::
 	rm -rf _arch
