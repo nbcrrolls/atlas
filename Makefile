@@ -59,7 +59,7 @@
 include Rolls.mk
 include atlas.mk
 
-preroll: 
+preroll::
 	for i in `ls nodes/*.xml.in`; do \
 	    export o=`echo $$i | sed 's/\.in//'`; \
 	    cp $$i $$o; \
