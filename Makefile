@@ -5,10 +5,9 @@
 # 
 # 				Rocks(r)
 # 		         www.rocksclusters.org
-# 		         version 5.5 (Mamba)
-# 		         version 6.0 (Mamba)
+# 		         version 6.2 (SideWinder)
 # 
-# Copyright (c) 2000 - 2012 The Regents of the University of California.
+# Copyright (c) 2000 - 2014 The Regents of the University of California.
 # All rights reserved.	
 # 
 # Redistribution and use in source and binary forms, with or without
@@ -55,19 +54,19 @@
 # 
 # @Copyright@
 #
-# $Log$
-#
 
 -include $(ROLLSROOT)/etc/Rolls.mk
 include Rolls.mk
 include atlas.mk
 
-default: 
+preroll: 
 	for i in `ls nodes/*.xml.in`; do \
 	    export o=`echo $$i | sed 's/\.in//'`; \
 	    cp $$i $$o; \
 	    sed -i "s/ATLASVER/$(ATLASVER)/g" $$o; \
 	done
+
+default:
 	$(MAKE) roll
 
 cvsclean:: clean
