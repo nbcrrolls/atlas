@@ -1,0 +1,10 @@
+#!/bin/bash
+#$ -cwd
+#$ -S /bin/bash
+#$ -N atlas
+#$ -o atlas.out
+#$ -e atlas.err
+#$ -pe threaded 8
+
+export PATH=/opt/python/bin:$PATH
+/opt/atlas-1.7.0/bin/run_atlas  --box-pad 5.0 --box-pdb 1brs_box.pdb --ppi 1brs.pdb  1 2 3
